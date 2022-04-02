@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCampBenefitsTable extends Migration
+class CreateTableCamps extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCampBenefitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('camp_benefits', function (Blueprint $table) {
+        Schema::create('camps', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('camp_id')->unsigned();
-            $table->string('name');
+            $table->string('title', 100);
+            $table->string('slug', 100);
+            $table->integer('price')->unsigned();
             $table->timestamps();
-
-            $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +30,6 @@ class CreateCampBenefitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('camp_benefits');
+        Schema::dropIfExists('camps');
     }
 }
